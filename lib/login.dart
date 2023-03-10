@@ -19,8 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var _passwordVisible = false;
-  void initState() { 
-    
+  void initState() {     
     _passwordVisible = false;
   }
 
