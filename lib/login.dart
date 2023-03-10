@@ -27,16 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   // title: Text("Login"),
-      //   backgroundColor: Colors.blueGrey,
-      //   leading: IconButton(
-      //     icon: Icon(Icons.arrow_back),
-      //     onPressed: () {
-      //       Get.toNamed('/');
-      //     },
-      //   ),
-      // ),
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
