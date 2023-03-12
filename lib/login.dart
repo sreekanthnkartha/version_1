@@ -19,10 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var _passwordVisible = false;
-  void initState() { 
-
+  void initState() {
     _passwordVisible = false;
-    
   }
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -172,26 +170,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(10)),
                       ),
                     ),
-                    // SizedBox(
-                    //   height: 40,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text(
-                    //       "New user ?",
-                    //     ),
-                    //     MaterialButton(
-                    //         onPressed: () {
-                    //           // Get.toNamed("/register");
-                    //         },
-                    //         child: Text("Register now",
-                    //             style: TextStyle(
-                    //                 color: Colors.red[800],
-                    //                 fontSize: 18,
-                    //                 decoration: TextDecoration.underline)))
-                    //   ],
-                    // ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Doesn't have an account ? | ",
+                            style: TextStyle(color: Colors.black)),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text("Sign Up",
+                              style: TextStyle(
+                                  color: Colors.blueAccent, fontSize: 17)),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
