@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:version_1/database/fetch.dart';
 import 'package:version_1/extra.dart';
 import 'package:version_1/forgotpassword.dart';
 import 'package:version_1/global.dart';
-import 'package:version_1/home.dart';
+import 'package:version_1/homepage/screens/home/home_screen.dart';
 import 'package:version_1/styles.dart';
 import 'package:version_1/variables.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,14 +17,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
+  bool _isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var _passwordVisible = false;
-  void initState() { 
-
-    _passwordVisible = false;
-    
-  }
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
@@ -123,7 +124,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             await ResetPassword(
                                 context, emailController, firebaseAuth);
                             if (restsender == 1)
-                              print("Reset Link has been Sent");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Reset Link has been Sent"),
+                                ),
+                              );
                           },
                           child: Text("Forgot password ?",
                               style: TextStyle(
@@ -139,6 +144,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           // print(_emailController.toString() +
                           //     " " +
                           //     _passwordController.toString());
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          await Future.delayed(const Duration(seconds: 5));
+                          print("data");
+                          await getData();
                           try {
                             await firebaseAuth
                                 .signInWithEmailAndPassword(
@@ -152,17 +163,29 @@ class _LoginScreenState extends State<LoginScreen> {
                             String error;
                             error = e.toString();
                             int kpp = error.lastIndexOf(']') + 1;
-                            print("${error.substring(kpp)}");
+                            String error1 = error.substring(kpp);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(error1),
+                              ),
+                            );
                           }
+                          setState(() {
+                            _isLoading = false;
+                          });
                         },
-                        child: Text(
-                          'SIGN IN',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'SFUIDisplay',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: !_isLoading
+                            ? Text(
+                                'SIGN IN',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'SFUIDisplay',
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
                         color: Colors.cyan, //Color(0xffff2d55),
                         elevation: 0,
                         minWidth: 400,
